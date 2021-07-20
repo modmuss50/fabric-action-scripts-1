@@ -7697,7 +7697,7 @@ async function generateChangelog(github, workflow_id) {
         workflow_id,
         branch: lib_github.context.ref.split("/").pop(),
         per_page: 1,
-        status: "completed",
+        status: "success",
     });
     let changelog;
     let runs = await request.data.workflow_runs;
