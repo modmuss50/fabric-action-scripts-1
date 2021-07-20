@@ -7693,14 +7693,14 @@ async function generateChangelog(github) {
     const baseRequest = { owner, repo };
     console.log("Generating changelog");
     console.log({
-        workflow_id: lib_github.context.workflow,
+        workflow_id: lib_github.context.action,
         branch: lib_github.context.ref,
     });
     // Request the last completed workflow run for this branch
     let request = await github.actions.listWorkflowRuns({
         ...baseRequest,
         workflow_id: lib_github.context.workflow,
-        branch: lib_github.context.ref,
+        branch: lib_github.context.ref.split("/").pop(),
         per_page: 1,
         status: "completed",
     });
