@@ -7757,7 +7757,10 @@ async function main() {
             throw new Error("Unknown context: " + context);
     }
 }
-main();
+main().catch((e) => {
+    console.error(e);
+    core.setFailed(e.message);
+});
 
 })();
 
