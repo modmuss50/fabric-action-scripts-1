@@ -7687,13 +7687,13 @@ async function git(args) {
 
 
 
-async function generateChangelog(github) {
+async function generateChangelog(github, workflow_id) {
     const owner = lib_github.context.repo.owner;
     const repo = lib_github.context.repo.repo;
     const baseRequest = { owner, repo };
     console.log("Generating changelog");
     console.log({
-        workflow_id: lib_github.context.action,
+        workflow_id,
         branch: lib_github.context.ref,
     });
     // Request the last completed workflow run for this branch
@@ -7751,7 +7751,7 @@ async function main() {
             await yarnUpdateBase(github.rest, parseInt(core.getInput("issue-number", { required: true })));
             break;
         case "changelog":
-            await generateChangelog(github.rest);
+            await generateChangelog(github.rest, core.getInput("workflow_id", { required: true }));
             break;
         default:
             throw new Error("Unknown context: " + context);
